@@ -74,7 +74,11 @@ snapshot.forEach((doc)=>{
 var data=doc.data();
 
 var li=document.createElement("div");
-li.textContent=data.name + ": " + data.text;
+li.innerHTML="<b>"+data.name+"</b>: "+data.text;
+li.style.background="#e4e6eb";
+li.style.padding="8px";
+li.style.margin="5px";
+li.style.borderRadius="10px";
 
 document.getElementById("messages").appendChild(li);
 
