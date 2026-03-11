@@ -94,7 +94,7 @@ document.getElementById("msg").value="";
 
 }
 
-db.collection("messages").orderBy("time")
+db.collection("messages")
 .onSnapshot((snapshot)=>{
 
 document.getElementById("messages").innerHTML="";
