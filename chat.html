@@ -16,7 +16,16 @@
 <br><br>
 
 <input id="msg" placeholder="Type message">
-<button onclick="send()">Send</button>
+<button onclick="send()" style="
+background:#0084ff;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:8px;
+cursor:pointer;
+">
+Send
+</button>
 
 <div id="messages" style="
 height:400px;
@@ -29,6 +38,8 @@ margin-top:10px;
 
 <script>
 
+    var myName = prompt("Enter your name");
+    
 const firebaseConfig = {
     apiKey: "AIzaSyA4zMHQUU6x8oNDtDUFd9fLeu4AcLD7SFo",
     authDomain: "rock-solid-261b1.firebaseapp.com",
@@ -74,13 +85,26 @@ snapshot.forEach((doc)=>{
 var data=doc.data();
 
 var li=document.createElement("div");
+
 li.innerHTML="<b>"+data.name+"</b>: "+data.text;
-li.style.background="#e4e6eb";
 li.style.padding="8px";
 li.style.margin="5px";
 li.style.borderRadius="10px";
+li.style.maxWidth="60%";
+
+if(data.name==myName){
+li.style.background="#0084ff";
+li.style.color="white";
+li.style.marginLeft="auto";
+}else{
+li.style.background="#e4e6eb";
+li.style.marginRight="auto";
+}
 
 document.getElementById("messages").appendChild(li);
+
+var box=document.getElementById("messages");
+box.scrollTop=box.scrollHeight;
 
 });
 
