@@ -15,7 +15,22 @@
 <input id="name" placeholder="Your name">
 <br><br>
 
-<input id="msg" placeholder="Type message">
+<div style="
+position:fixed;
+bottom:0;
+width:100%;
+background:white;
+padding:10px;
+border-top:1px solid #ccc;
+">
+
+<input id="msg" placeholder="Type message" style="
+width:70%;
+padding:8px;
+border-radius:8px;
+border:1px solid #ccc;
+">
+
 <button onclick="send()" style="
 background:#0084ff;
 color:white;
@@ -27,6 +42,8 @@ cursor:pointer;
 Send
 </button>
 
+</div>
+
 <div id="messages" style="
 height:400px;
 overflow-y:auto;
@@ -34,6 +51,7 @@ background:white;
 padding:10px;
 border-radius:10px;
 margin-top:10px;
+padding-bottom:80px;
 "></div>
 
 <script>
