@@ -69,9 +69,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+var myName = "";
+
 function send(){
 
 var name=document.getElementById("name").value;
+myName=name;
 var msg=document.getElementById("msg").value;
 
 var allowed=["Janu","Abi","Radha","Dhaya","Ragul"];
