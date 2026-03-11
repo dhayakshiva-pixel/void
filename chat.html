@@ -18,7 +18,14 @@
 <input id="msg" placeholder="Type message">
 <button onclick="send()">Send</button>
 
-<ul id="messages"></ul>
+<div id="messages" style="
+height:400px;
+overflow-y:auto;
+background:white;
+padding:10px;
+border-radius:10px;
+margin-top:10px;
+"></div>
 
 <script>
 
@@ -66,7 +73,7 @@ snapshot.forEach((doc)=>{
 
 var data=doc.data();
 
-var li=document.createElement("li");
+var li=document.createElement("div");
 li.textContent=data.name + ": " + data.text;
 
 document.getElementById("messages").appendChild(li);
