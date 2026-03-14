@@ -48,10 +48,12 @@ Send
 height:70vh;
 overflow-y:auto;
 background:white;
-padding:10px;
+padding:15px;
 border-radius:10px;
 margin-top:10px;
 padding-bottom:100px;
+display:flex;
+flex-direction:column;
 "></div>
 
 <script>
@@ -87,7 +89,8 @@ return;
 db.collection("messages").add({
 name:name,
 text:msg,
-time:Date.now()
+time:new Date().toLocaleTimeString()
+});
 });
 
 document.getElementById("msg").value="";
@@ -105,12 +108,17 @@ var data=doc.data();
 
 var li=document.createElement("div");
 
-li.innerHTML="<b>"+data.name+"</b>: "+data.text;
-li.style.padding="8px";
-li.style.margin="5px";
-li.style.borderRadius="10px";
-li.style.maxWidth="60%";
+li.innerHTML="<b>"+data.name+"</b>: "+data.text+" <span style='font-size:11px;color:gray;'>"+data.time+"</span>";
 
+li.style.padding="10px";
+li.style.margin="6px 0";
+li.style.borderRadius="12px";
+li.style.maxWidth="65%";
+li.style.wordWrap="break-word";
+
+li.style.display="flex";
+li.style.justifyContent="space-between";
+li.style.alignItems="center";
 if(data.name==myName){
 li.style.background="#e6f3ff";
 li.style.color="black";
