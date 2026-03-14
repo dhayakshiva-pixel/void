@@ -59,7 +59,6 @@ Send
 
 </div>
 
-
 <script>
 
 const firebaseConfig = {
@@ -98,14 +97,15 @@ return;
 db.collection("messages").add({
 name:name,
 text:msg,
-time:new Date().toLocaleTimeString()
+time:Date.now()
 });
 
 document.getElementById("msg").value="";
-
 }
 
-
+function deleteMessage(id){
+db.collection("messages").doc(id).delete();
+}
 
 db.collection("messages").orderBy("time").onSnapshot((snapshot)=>{
 
@@ -114,15 +114,21 @@ document.getElementById("messages").innerHTML="";
 snapshot.forEach((doc)=>{
 
 var data=doc.data();
-
 var li=document.createElement("div");
+
+var time=new Date(data.time).toLocaleTimeString();
+
+var deleteBtn="";
+
+if(data.name==myName){
+deleteBtn="<button onclick='deleteMessage(\""+doc.id+"\")' style='background:red;color:white;border:none;border-radius:6px;font-size:10px;padding:3px 6px;margin-left:5px;cursor:pointer;'>Delete</button>";
+}
 
 li.innerHTML=
 "<div style='font-weight:bold'>"+data.name+"</div>"+
 "<div>"+data.text+"</div>"+
-"<div style='font-size:10px;color:gray;text-align:right'>"+new Date(data.time).toLocaleTimeString()+"</div>";
+"<div style='font-size:10px;color:gray;text-align:right'>"+time+" "+deleteBtn+"</div>";
 
-li.style.position="relative";
 li.style.padding="10px";
 li.style.margin="10px 0";
 li.style.borderRadius="12px";
@@ -131,18 +137,13 @@ li.style.wordWrap="break-word";
 li.style.backdropFilter="blur(3px)";
 
 if(data.name==myName){
-
 li.style.background="#e6f3ff";
-li.style.color="black";
 li.style.marginLeft="auto";
 li.style.borderTopRightRadius="2px";
-
 }else{
-
 li.style.background="#e4e6eb";
 li.style.marginRight="auto";
 li.style.borderTopLeftRadius="2px";
-
 }
 
 document.getElementById("messages").appendChild(li);
