@@ -119,7 +119,7 @@ var li=document.createElement("div");
 li.innerHTML=
 "<div style='font-weight:bold'>"+data.name+"</div>"+
 "<div>"+data.text+"</div>"+
-"<div style='font-size:10px;color:gray;text-align:right'>"+data.time+"</div>";
+"<div style='font-size:10px;color:gray;text-align:right'>"+new Date(data.time).toLocaleTimeString()+"</div>";
 
 li.style.position="relative";
 li.style.padding="10px";
