@@ -106,7 +106,7 @@ document.getElementById("msg").value="";
 
 
 
-db.collection("messages").onSnapshot((snapshot)=>{
+db.collection("messages").orderBy("time").onSnapshot((snapshot)=>{
 
 document.getElementById("messages").innerHTML="";
 
@@ -116,12 +116,14 @@ var data=doc.data();
 
 var li=document.createElement("div");
 
-li.innerHTML="<b>"+data.name+"</b>: "+data.text+
-"<span style='font-size:11px;color:gray;margin-left:10px;'>"+data.time+"</span>";
+li.innerHTML=
+"<div style='font-weight:bold'>"+data.name+"</div>"+
+"<div>"+data.text+"</div>"+
+"<div style='font-size:10px;color:gray;text-align:right'>"+data.time+"</div>";
 
 li.style.position="relative";
 li.style.padding="10px";
-li.style.margin="8px 0";
+li.style.margin="10px 0";
 li.style.borderRadius="12px";
 li.style.maxWidth="65%";
 li.style.wordWrap="break-word";
