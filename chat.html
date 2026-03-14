@@ -8,41 +8,12 @@
 
 </head>
 
-<body style="font-family:Arial">
+<body style="font-family:Arial;background:#f2f2f2;margin:0;padding:20px;">
 
 <h2>Friends Chat Room</h2>
 
 <input id="name" placeholder="Your name">
 <br><br>
-
-<div style="
-position:fixed;
-bottom:0;
-width:100%;
-background:white;
-padding:10px;
-border-top:1px solid #ccc;
-">
-
-<input id="msg" placeholder="Type message" style="
-width:70%;
-padding:8px;
-border-radius:8px;
-border:1px solid #ccc;
-">
-
-<button onclick="send()" style="
-background:#0084ff;
-color:white;
-border:none;
-padding:8px 15px;
-border-radius:8px;
-cursor:pointer;
-">
-Send
-</button>
-
-</div>
 
 <div id="messages" style="
 height:70vh;
@@ -56,33 +27,70 @@ display:flex;
 flex-direction:column;
 "></div>
 
+
+<div style="
+position:fixed;
+bottom:0;
+width:100%;
+left:0;
+background:white;
+padding:10px;
+border-top:1px solid #ccc;
+">
+
+<input id="msg" placeholder="Type message" style="
+width:70%;
+padding:8px;
+border-radius:8px;
+border:1px solid #ccc;
+">
+
+<button onclick="send()" style="
+background:#4da6ff;
+color:white;
+border:none;
+padding:8px 15px;
+border-radius:8px;
+cursor:pointer;
+">
+Send
+</button>
+
+</div>
+
+
 <script>
-    
+
 const firebaseConfig = {
-    apiKey: "AIzaSyA4zMHQUU6x8oNDtDUFd9fLeu4AcLD7SFo",
-    authDomain: "rock-solid-261b1.firebaseapp.com",
-    projectId: "rock-solid-261b1",
-    storageBucket: "rock-solid-261b1.firebasestorage.app",
-    messagingSenderId: "592324298097",
-    appId: "1:592324298097:web:af769266960bbafad722d0",
-    measurementId: "G-ZVKZ7ZG707"
+apiKey: "AIzaSyA4zMHQUU6x8oNDtDUFd9fLeu4AcLD7SFo",
+authDomain: "rock-solid-261b1.firebaseapp.com",
+projectId: "rock-solid-261b1",
+storageBucket: "rock-solid-261b1.firebasestorage.app",
+messagingSenderId: "592324298097",
+appId: "1:592324298097:web:af769266960bbafad722d0",
+measurementId: "G-ZVKZ7ZG707"
 };
 
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-var myName = "";
+var myName="";
 
 function send(){
 
 var name=document.getElementById("name").value;
 myName=name;
+
 var msg=document.getElementById("msg").value;
 
-var allowed=["Janu","Abi","Radha","Dhaya","Ragul"];
+var allowed=["Janu","Abi","Radha","Dhaya","Ria"];
 
 if(!allowed.includes(name)){
 alert("Name not allowed");
+return;
+}
+
+if(msg.trim()==""){
 return;
 }
 
@@ -91,14 +99,14 @@ name:name,
 text:msg,
 time:new Date().toLocaleTimeString()
 });
-});
 
 document.getElementById("msg").value="";
 
 }
 
-db.collection("messages")
-.onSnapshot((snapshot)=>{
+
+
+db.collection("messages").onSnapshot((snapshot)=>{
 
 document.getElementById("messages").innerHTML="";
 
@@ -108,24 +116,30 @@ var data=doc.data();
 
 var li=document.createElement("div");
 
-li.innerHTML="<b>"+data.name+"</b>: "+data.text+" <span style='font-size:11px;color:gray;'>"+data.time+"</span>";
+li.innerHTML="<b>"+data.name+"</b>: "+data.text+
+"<span style='font-size:11px;color:gray;margin-left:10px;'>"+data.time+"</span>";
 
+li.style.position="relative";
 li.style.padding="10px";
-li.style.margin="6px 0";
+li.style.margin="8px 0";
 li.style.borderRadius="12px";
 li.style.maxWidth="65%";
 li.style.wordWrap="break-word";
 
-li.style.display="flex";
-li.style.justifyContent="space-between";
-li.style.alignItems="center";
+
 if(data.name==myName){
+
 li.style.background="#e6f3ff";
 li.style.color="black";
 li.style.marginLeft="auto";
+li.style.borderTopRightRadius="2px";
+
 }else{
+
 li.style.background="#e4e6eb";
 li.style.marginRight="auto";
+li.style.borderTopLeftRadius="2px";
+
 }
 
 document.getElementById("messages").appendChild(li);
